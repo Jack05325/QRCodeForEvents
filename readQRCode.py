@@ -23,12 +23,14 @@ def saveCSV():
         writer.writerows(data_list)  # Scrivi le righe modificate
 
 reloadCSV()
-cv2.namedWindow("img", cv2.WINDOW_NORMAL)
-cv2.setWindowProperty("img", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+cv2.namedWindow("img", cv2.WINDOW_AUTOSIZE)
 cap = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
 while True:
     _, img = cap.read()
+
+    #img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+
     # detect and decode
     data, bbox, _ = detector.detectAndDecode(img)
     # check if there is a QRCode in the image
@@ -65,8 +67,8 @@ while True:
     indice = 1
     for data in data_list:
         if data["IsPresent"] == "1":  
-            posText += 50        
-            cv2.putText(img, f"{indice} {data['Nome']}", tuple([0, posText]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)   
+            posText += 35        
+            cv2.putText(img, f"{indice} {data['Nome']}", tuple([0, posText]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)   
             indice += 1
     cv2.imshow("img", img)
     if cv2.waitKey(1) == ord("q"):
