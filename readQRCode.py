@@ -65,11 +65,16 @@ while True:
     cv2.rectangle(img, tuple(startPoint), (500, img.shape[0]) , (0, 0, 0), thickness)
     posText = 0
     indice = 1
+    colorRed = (0, 0, 255)
+    colorGreen = (0, 255, 0)
     for data in data_list:
+        posText += 35
         if data["IsPresent"] == "1":  
-            posText += 35        
-            cv2.putText(img, f"{indice} {data['Nome']}", tuple([0, posText]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)   
-            indice += 1
+            cv2.putText(img, f"{indice} {data['Nome']}", tuple([0, posText]), cv2.FONT_HERSHEY_SIMPLEX, 1, colorGreen, 2)             
+        else:
+            cv2.putText(img, f"{indice} {data['Nome']}", tuple([0, posText]), cv2.FONT_HERSHEY_SIMPLEX, 1, colorRed, 2)
+                
+        indice += 1
     cv2.imshow("img", img)
     if cv2.waitKey(1) == ord("q"):
         break
